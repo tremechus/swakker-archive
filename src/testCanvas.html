@@ -1,0 +1,56 @@
+<html>
+<head>
+<script type="text/javascript" src="common.js">	</script>
+<script type="text/javascript" src="particle.js"></script>
+	
+</head>
+	<body>
+		<img src="img/fireworks/palette01.png" id="gradient" onload='getColors()'>
+		<canvas id="canvas" width="480" height="800" style="border: 1px solid black">
+			
+		</canvas>
+		
+		<script>
+			
+			canvas = document.getElementById('canvas');
+			canvasContext = canvas.getContext('2d');
+			
+			var x = 100, y = 100;
+
+			var magnitude = 8;
+
+			var particles = [];
+			var a = 0;
+			for (var i = 0; i < 25; i++) {
+				a += (Math.PI*2)/25;
+				var vx = magnitude * Math.cos(a);
+				var vy = magnitude * Math.sin(a);
+				var p = new Particle({x:200, y:200, velX:vx, velY:vy, variance: 1});
+				particles.push(p);
+			}			
+
+			var complete = false;
+			var intervalHandler = setInterval(function(){
+				complete = true;
+				for (var i = 0; i < particles.length; i++) {
+					var p = particles[i];
+					p.update({
+						accelY: .2
+					});
+					p.draw(canvasContext);
+					
+					complete = complete && p.isComplete;
+				}
+				
+				if (complete) {
+					clearInterval(intervalHandler);
+				}
+			}, 20);
+			
+//			function getColors(){
+//				Particle.useColorsFrom(document.getElementById('gradient'));
+//			}
+			
+		</script>
+	</body>
+</html>

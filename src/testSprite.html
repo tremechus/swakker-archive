@@ -1,0 +1,26 @@
+<html><head><meta name="viewport" content="user-scalable=no, width=device-width, target-densitydpi=device-dpi">
+<script type="text/javascript" src="common.js"></script>
+<script type="text/javascript" src="divsprite.js"></script>
+<script type="text/javascript" src="cupid.js"></script>
+</head>
+<body>
+	
+	<script type="text/javascript">
+		
+		screenScale = .5;
+		
+		sprite = cupid;
+		sprite.callback = null; 
+		sprite.setAnimation('idle');		
+		sprite.setPosition(500, 200);
+		sprite.show();
+		
+		for (anim in sprite.animMap) {
+			if (!sprite.animMap[anim].imgName) {
+				continue;
+			}
+			
+			document.write('<button onclick="sprite.setAnimation(\'' + anim + '\')">' + anim + '</button>');
+		}
+	</script>
+</body>
